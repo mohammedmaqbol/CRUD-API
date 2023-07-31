@@ -5,17 +5,21 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User {
-  @Prop()
+ 
+  @Prop({ unique: true }) 
   username: string;
 
-  @Prop()
+  @Prop({ unique: true })
   email: string;
 
   @Prop()
-  age: number;
+  avatar: string;
 
   @Prop()
   password: string;
+
+  @Prop()
+  role: string;
   
 }
 
@@ -26,7 +30,9 @@ UserSchema.pre<UserDocument>('save', async function (next) {
   if (!user.isModified('password')) {
     return next();
   }
+
   const hashedPassword = await bcrypt.hash(user.password, 10);
   user.password = hashedPassword;
+
   next();
 });

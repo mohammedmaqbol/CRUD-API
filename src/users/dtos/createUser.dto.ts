@@ -2,5 +2,7 @@ export class CreateUserDto {
   username: string;
   email: string;
   password: string;
-  age: number;
+  avatar: string;
+  role: string;
+  avatarFilename?: string; 
 }
